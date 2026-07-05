@@ -119,7 +119,7 @@ fun MangaupdatesTrackerApp(
     var lists by remember { mutableStateOf<List<UserList>>(emptyList()) }
     var existingEntry by remember { mutableStateOf<ListEntry?>(null) }
     var existingComment by remember { mutableStateOf<SeriesComment?>(null) }
-    var selectedListId by rememberSaveable { mutableIntStateOf(0) }
+    var selectedListId by rememberSaveable { mutableIntStateOf(-1) }
     var chapter by rememberSaveable { mutableStateOf("") }
     var comment by rememberSaveable { mutableStateOf("") }
     var rating by rememberSaveable { mutableStateOf("") }
@@ -195,7 +195,7 @@ fun MangaupdatesTrackerApp(
                     selectedListId = existingEntry?.listId
                         ?: lists.firstOrNull { it.type == DefaultTrackerList.READING.apiType }?.id
                         ?: lists.firstOrNull()?.id
-                        ?: 0
+                        ?: -1
                     chapter = existingEntry?.chapter?.toString().orEmpty()
                     comment = existingComment?.content.orEmpty()
                     rating = existingRating?.toString().orEmpty()
@@ -359,6 +359,9 @@ fun MangaupdatesTrackerApp(
                                     shareLoading = true
                                     shareMessage = null
                                     runCatching {
+                                        if (selectedListId < 0) {
+                                            throw MangaUpdatesException("Select a MangaUpdates list first.")
+                                        }
                                         val chapterNumber = chapter.toIntOrNull()
                                         val ratingNumber = rating.toDoubleOrNull()
                                         api.saveListEntry(
@@ -382,7 +385,7 @@ fun MangaupdatesTrackerApp(
                                     shareLoading = false
                                 }
                             },
-                            enabled = !shareLoading && token.isNotBlank() && selectedListId > 0
+                            enabled = !shareLoading && token.isNotBlank() && selectedListId >= 0
                         ) {
                             Text("Save")
                         }

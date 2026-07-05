@@ -35,7 +35,7 @@ class MangaUpdatesApi {
                 title = it.optString("title").ifBlank { it.optString("type") },
                 type = it.optString("type")
             )
-        }.filter { it.id > 0 }
+        }.filter { it.id >= 0 }
     }
 
     suspend fun searchSeries(query: String, token: String?): SeriesResult {
