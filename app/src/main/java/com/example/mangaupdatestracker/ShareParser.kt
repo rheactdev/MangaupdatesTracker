@@ -34,10 +34,10 @@ private fun titleQueryFromUrl(url: String): String? {
     if (host != "mangago.me") return null
 
     val segments = uri.pathSegments
-    val readMangaIndex = segments.indexOf("read-manga")
-    if (readMangaIndex < 0 || readMangaIndex + 1 >= segments.size) return null
+    val mangaIndex = segments.indexOfFirst { it == "read-manga" || it == "recommend-manga" }
+    if (mangaIndex < 0 || mangaIndex + 1 >= segments.size) return null
 
-    return segments[readMangaIndex + 1].toSearchTitle()
+    return segments[mangaIndex + 1].toSearchTitle()
 }
 
 private fun String.toSearchTitle(): String? =

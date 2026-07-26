@@ -15,8 +15,8 @@ android {
         applicationId = "com.example.mangaupdatestracker"
         minSdk = 36
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.0.1-alpha02"
+        versionCode = 3
+        versionName = "0.0.1-alpha03"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

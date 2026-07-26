@@ -46,6 +46,14 @@
                     android:host="mangago.me"
                     android:pathPrefix="/read-manga/"
                     android:scheme="https" />
+                <data
+                    android:host="www.mangago.me"
+                    android:pathPrefix="/recommend-manga/"
+                    android:scheme="https" />
+                <data
+                    android:host="mangago.me"
+                    android:pathPrefix="/recommend-manga/"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
     </application>
